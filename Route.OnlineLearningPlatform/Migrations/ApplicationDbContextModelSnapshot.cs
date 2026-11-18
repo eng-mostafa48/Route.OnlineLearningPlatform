@@ -47,6 +47,28 @@ namespace Route.OnlineLearningPlatform.Migrations
                     b.HasIndex("ParentCategoryId");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Programming courses",
+                            Name = "Programming"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Backend development",
+                            Name = "Backend",
+                            ParentCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "ASP.NET development",
+                            Name = "ASP.NET",
+                            ParentCategoryId = 2
+                        });
                 });
 
             modelBuilder.Entity("Route.OnlineLearningPlatform.Models.Course", b =>
@@ -95,6 +117,43 @@ namespace Route.OnlineLearningPlatform.Migrations
                         {
                             t.HasCheckConstraint("CK_Course_PublishedAt", "(IsPublished = 0 AND PublishedAt IS NULL) OR (IsPublished = 1 AND PublishedAt IS NOT NULL)");
                         });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            Description = "Learn C# from scratch",
+                            InstructorId = 1,
+                            IsPublished = true,
+                            Level = 0,
+                            Price = 500m,
+                            PublishedAt = new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "C# Fundamentals"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 3,
+                            Description = "Learn ASP.NET Core",
+                            InstructorId = 2,
+                            IsPublished = true,
+                            Level = 1,
+                            Price = 1000m,
+                            PublishedAt = new DateTime(2025, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "ASP.NET Core"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 2,
+                            Description = "Advanced C# concepts",
+                            InstructorId = 1,
+                            IsPublished = false,
+                            Level = 2,
+                            Price = 750m,
+                            Title = "Advanced C#"
+                        });
                 });
 
             modelBuilder.Entity("Route.OnlineLearningPlatform.Models.Enrollment", b =>
@@ -131,6 +190,25 @@ namespace Route.OnlineLearningPlatform.Migrations
 
                             t.HasCheckConstraint("CK_Enrollment_Progress", "Progress >= 0 AND Progress <= 100");
                         });
+
+                    b.HasData(
+                        new
+                        {
+                            StudentId = 1,
+                            CourseId = 1,
+                            EnrollmentDate = new DateTime(2025, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinalGrade = 95m,
+                            Progress = 100m,
+                            Status = 1
+                        },
+                        new
+                        {
+                            StudentId = 2,
+                            CourseId = 2,
+                            EnrollmentDate = new DateTime(2025, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Progress = 45m,
+                            Status = 0
+                        });
                 });
 
             modelBuilder.Entity("Route.OnlineLearningPlatform.Models.Instructor", b =>
@@ -164,6 +242,24 @@ namespace Route.OnlineLearningPlatform.Migrations
                         .IsUnique();
 
                     b.ToTable("Instructors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Bio = "Backend Developer",
+                            Email = "ahmed@example.com",
+                            FullName = "Ahmed Mohamed",
+                            JoinedAt = new DateTime(2025, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Bio = "Software Engineer",
+                            Email = "sara@example.com",
+                            FullName = "Sara Ali",
+                            JoinedAt = new DateTime(2025, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Route.OnlineLearningPlatform.Models.Student", b =>
@@ -193,6 +289,22 @@ namespace Route.OnlineLearningPlatform.Migrations
                         .IsUnique();
 
                     b.ToTable("Students");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DateOfBirth = new DateTime(2003, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "omar@example.com",
+                            FullName = "Omar Hassan"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DateOfBirth = new DateTime(2002, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "mona@example.com",
+                            FullName = "Mona Ahmed"
+                        });
                 });
 
             modelBuilder.Entity("Route.OnlineLearningPlatform.Models.Category", b =>
